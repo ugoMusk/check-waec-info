@@ -1,8 +1,8 @@
-from app import db
+import db_engine
 
-class Document(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    content = db.Column(db.Text)
-    json_data = db.Column(db.Text)
+class Document(db_engine.Model):
+    id = db_engine.Column(db_engine.Integer, primary_key=True)
+    title = db_engine.Column(db_engine.String(100))
+    content = db_engine.Column(db_engine.Text)
+    json_data = db_engine.Column(db_engine.Text)
 n

@@ -2,36 +2,84 @@
 
 """ Module reads and parses pages in a pdf file """
 
+import sys
 import fitz
+import json
 
 
-def read_pdf_file(file_path):
+def readPdfFile(filePath):
     """ reads and returns all lines in a pdf file """
     try:
-        with open(file_path, "rb") as file:
-            pdf_file = fitz.open(file)
+        with open(filePath, "rb") as file:
+            pdfFile = fitz.open(file)
 
-            all_lines = []
-            for page in pdf_file:
+            allLines = []
+            for page in pdfFile:
                 text = page.get_text("text")
-                split_lines = text.splitlines()
-                all_lines.extend(split_lines)
+                lines = text.splitlines()
+                allLines.extend(lines)
 
-            return all_lines
+            return allLines
 
     except FileNotFoundError:
-        return [f"Error: {file_path} not found"]
+        return [f"Error: {filePath} not found"]
 
 
-# path to file to read
-pdf_file_path = "pdf_file.pdf"
+def listToString(list):
+    """convert a python list to a string """
+    newString=""
 
-# call read function
-lines = read_pdf_file(pdf_file_path)
+    # loop over the list
+    for item in list:
+        newString += '{} '.format(item)
 
-# itterate and print each line
-for line in lines:
-    print(line)
+    return newString
 
-#print number of lines
-print (f"total_lines: {len(lines)}")
+def writeToJson(FilePath, content):
+    """ write parsed pdf file to a json file format """
+    with open(FilePath, "w") as jsonFile:
+        jsonFile.write(content)
+
+
+def parser():
+    """ output point """
+    
+    # path to file to read
+    pdfFilePath = "file_resource/pdf_file.pdf"
+    # jsonFilePath = "parsed.json"
+
+    # call read function
+    lines = readPdfFile(pdfFilePath)
+    
+    # itterate and print each line
+    for line in lines:
+        allLines = list(line)
+        allLines.insert(len(allLines) - len(allLines) + 7, ", ")
+        joinedLines = "".join(allLines)
+        print(joinedLines)
+
+        """ None of these worked yet for saving to json """
+        # convert lines to JSON format
+        # jsonData = []
+        # charArray = list(joinedLines)
+        # jsonData.append({charArray})
+        
+        # write the JSON data to a file
+        # jsonContents = json.dumps(jsonData, indent=2)
+        # writeToJson(jsonFilePath, jsonContents)
+
+        """ use command line redirection to save print output to a csv file"""
+        # e.g: python parse_file.py > parsed.csv
+
+        """ or call Redirectfile function """
+        # e.g: Redirectfile(filePath)
+        
+    # print number of lines
+    print(f"Total Number of Lines in {pdfFilePath} is: {len(lines)}")
+
+def Redirectfile(file):
+    return sys.stdout = file
+
+if __name__ == '__main__':
+    # call main function
+    parser()
