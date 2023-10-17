@@ -9,6 +9,9 @@ __pycache__/
 # virtual environment
 .waec
 
+# ignored directories
+file_resource
+
 # Distribution / packaging
 .Python
 build/
