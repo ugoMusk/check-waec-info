@@ -45,7 +45,7 @@ def parser():
     """ output point """
     
     # path to file to read
-    pdfFilePath = "file_resource/pdf_file.pdf"
+    pdfFilePath = "centers.pdf"
     # jsonFilePath = "parsed.json"
 
     # call read function
@@ -78,7 +78,7 @@ def parser():
     print(f"Total Number of Lines in {pdfFilePath} is: {len(lines)}")
 
 def Redirectfile(file):
-    return sys.stdout = file
+    sys.stdout = file
 
 if __name__ == '__main__':
     # call main function

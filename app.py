@@ -25,7 +25,7 @@ def homePage():
     home route
     """
 
-    return render_template("waec-info.html")
+    return render_template("home.html")
 
 
 if __name__ == "__main__":
